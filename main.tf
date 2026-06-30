@@ -1,17 +1,20 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~> 3.0"
-    }
-  }
+esource "azurerm_resource_group" "rg" {
+  name     = var.rg_name
+  location = var.location
+}
+variable "rg_name" {
+  type        = string
+  description = "Name of the resource group"
 }
 
-provider "azurerm" {
-  features {}
+variable "location" {
+  type        = string
+  description = "Azure region"
+}
+output "rg_name" {
+  value = azurerm_resource_group.rg.name
 }
 
-resource "azurerm_resource_group" "rg" {
-  name     = "demo-resource-group"
-  location = "eastus"
+output "rg_location" {
+  value = azurerm_resource_group.rg.location
 }
